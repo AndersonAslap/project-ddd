@@ -13,7 +13,7 @@ describe("Customer repository unit tests", () => {
     beforeEach(async () => {
         sequelize = new Sequelize({
             dialect: 'sqlite',
-            storage: ':memoryCustomerRepository',
+            storage: 'storage/:memoryCustomerRepository',
             logging: false,
             sync: { force: true }
         });
@@ -33,7 +33,11 @@ describe("Customer repository unit tests", () => {
         const customerModel = await CustomerModel.findOne({ where : { id } })
         expect(customerModel.toJSON()).toStrictEqual({
             id,
-            name: 'Anderson'
+            name: 'Anderson',
+            number: null,
+            state: null,
+            street: null,
+            zipcode: null
         })
     })
 
@@ -46,7 +50,11 @@ describe("Customer repository unit tests", () => {
         const customerModel = await CustomerModel.findOne({ where : { id } })
         expect(customerModel.toJSON()).toStrictEqual({
             id,
-            name: 'Anderson Adolfo'
+            name: 'Anderson Adolfo',
+            number: null,
+            state: null,
+            street: null,
+            zipcode: null
         })
     })
 

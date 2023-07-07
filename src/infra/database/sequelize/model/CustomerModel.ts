@@ -12,4 +12,16 @@ export class CustomerModel extends Model {
 
     @Column({ allowNull: false })
     declare name: string
+
+    @Column
+    declare street: string 
+
+    @Column
+    declare number: number 
+
+    @Column
+    declare zipcode: string
+
+    @Column
+    declare state: string
 }

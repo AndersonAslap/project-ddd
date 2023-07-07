@@ -7,16 +7,32 @@ export class CustomerRepositoryDatabase implements CustomerRepository {
     async save(entity: Customer): Promise<void> {
         await CustomerModel.create({
             id: entity._id,
-            name: entity._name
+            name: entity._name,
+            street: entity._address?.street || null,
+            state: entity._address?.state || null,
+            number: entity._address?.number || null,
+            zipcode: entity._address?.zipcode || null
         });
     }
 
     async update(entity: Customer): Promise<void> {
-        await CustomerModel.update({
-            name: entity._name
-        }, {
-            where: { id: entity._id }
-        })
+        if (entity._address) {
+            await CustomerModel.update({
+                name: entity._name,
+                street: entity._address?.street || null,
+                state: entity._address?.state || null,
+                number: entity._address?.number || null,
+                zipcode: entity._address?.zipcode || null
+            }, {
+                where: { id: entity._id }
+            })
+        } else {
+            await CustomerModel.update({
+                name: entity._name
+            }, {
+                where: { id: entity._id }
+            })
+        }
     }
 
     async find(id: string): Promise<Customer> {
