@@ -24,6 +24,12 @@ export class Order {
         return this.items
     }
 
+    changeItems(items: Item[]) {
+        this.items = items
+        this.total = this.calculateTotal()
+        this.validated()
+    }
+
     calculateTotal() {
         return this.items.reduce((acc, item) => acc + item.calculateTotal(), 0)
     }

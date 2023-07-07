@@ -29,7 +29,7 @@ describe("Order repository unit tests", () => {
     beforeEach(async () => {
         sequelize = new Sequelize({
             dialect: 'sqlite',
-            storage: ':memoryOrderRepository',
+            storage: 'storage/:memoryOrderRepository',
             logging: false,
             sync: { force: true }
         })
@@ -75,5 +75,37 @@ describe("Order repository unit tests", () => {
               },
             ],
         });
+    })
+
+    it("should find an order", async () => {
+        const item = new Item(randomUUID(), product1._id, product1._price, 2)
+        const order = new Order(randomUUID(), customer._id, [item])
+        await orderRepository.save(order)
+        const findOrder = await orderRepository.find(order._id)
+        expect(findOrder).toEqual(order)
+    })
+
+    it.only("should updated an order", async () => {
+        const item = new Item(randomUUID(), product1._id, product1._price, 2)
+        const order = new Order(randomUUID(), customer._id, [item])
+        await orderRepository.save(order)
+        const item2 = new Item(randomUUID(), product1._id, product1._price, 1)
+        order.changeItems([item2])
+        await orderRepository.update(order)
+        const findOrder = await orderRepository.find(order._id)
+        expect(findOrder).toEqual(order)
+    })
+
+    it("should find all orders", async () => {
+        const item1 = new Item(randomUUID(), product1._id, product1._price, 2)
+        const order1 = new Order(randomUUID(), customer._id, [item1])
+        await orderRepository.save(order1)
+        const item2 = new Item(randomUUID(), product1._id, product1._price, 2)
+        const item3 = new Item(randomUUID(), product2._id, product2._price, 1)
+        const order2 = new Order(randomUUID(), customer._id, [item2, item3])
+        await orderRepository.save(order2)
+        const foundOrders = await orderRepository.findAll()
+        const orders = [order1, order2]
+        expect(foundOrders).toEqual(orders)
     })
 })
