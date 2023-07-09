@@ -1,4 +1,4 @@
-import { Address } from "../../src/domain/entity/Address"
+import { Address } from "../../src/domain/customer/value-object/Address"
 
 describe("Address unit tests", () => {
 

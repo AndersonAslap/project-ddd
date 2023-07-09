@@ -1,9 +1,9 @@
 import { randomUUID } from 'crypto'
-import { Item } from "../../src/domain/entity/Item";
-import { Product } from "../../src/domain/entity/Product"
-import { Order } from '../../src/domain/entity/Order';
-import { Customer } from '../../src/domain/entity/Customer';
-import { OrderService } from '../../src/domain/service/OrderService';
+import { Item } from "../../src/domain/checkout/entity/Item";
+import { Product } from "../../src/domain/product/entity/Product"
+import { Order } from '../../src/domain/checkout/entity/Order';
+import { Customer } from '../../src/domain/customer/entity/Customer';
+import { OrderService } from '../../src/domain/checkout/services/OrderService';
 
 let customer : Customer;
 let product1 : Product;

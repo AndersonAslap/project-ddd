@@ -1,19 +1,19 @@
 import { randomUUID } from 'crypto'
 import { Sequelize } from "sequelize-typescript"
-import { Customer } from "../../src/domain/entity/Customer"
-import { Product } from "../../src/domain/entity/Product"
-import { CustomerRepository } from '../../src/domain/repository/CustomerRepository'
-import ProductRepository from '../../src/domain/repository/ProductRepository'
-import { CustomerRepositoryDatabase } from '../../src/infra/repository/CustomerRepositoryDatabase'
-import { ProductRepositoryDatabase } from '../../src/infra/repository/ProductRepositoryDatabase'
-import { Order } from '../../src/domain/entity/Order'
-import { Item } from '../../src/domain/entity/Item'
-import { ProductModel } from '../../src/infra/database/sequelize/model/ProductModel'
-import { CustomerModel } from '../../src/infra/database/sequelize/model/CustomerModel'
-import { OrderRepository } from '../../src/domain/repository/OrderRepository'
-import { ItemModel } from '../../src/infra/database/sequelize/model/ItemModel'
-import { OrderModel } from '../../src/infra/database/sequelize/model/OrderModel'
-import { OrderRepositoryDatabase } from '../../src/infra/repository/OrderRepositoryDatabase'
+import { Customer } from "../../src/domain/customer/entity/Customer"
+import { Product } from "../../src/domain/product/entity/Product"
+import { CustomerRepository } from '../../src/domain/customer/repository/CustomerRepository'
+import ProductRepository from '../../src/domain/product/repository/ProductRepository'
+import { CustomerRepositoryDatabase } from '../../src/infra/customer/repository/sequelize/CustomerRepositoryDatabase'
+import { ProductRepositoryDatabase } from '../../src/infra/product/repository/sequelize/ProductRepositoryDatabase'
+import { Order } from '../../src/domain/checkout/entity/Order'
+import { Item } from '../../src/domain/checkout/entity/Item'
+import { ProductModel } from '../../src/infra/product/database/sequelize/model/ProductModel'
+import { CustomerModel } from '../../src/infra/customer/database/sequelize/model/CustomerModel'
+import { OrderRepository } from '../../src/domain/checkout/repository/OrderRepository'
+import { ItemModel } from '../../src/infra/checkout/database/sequelize/model/ItemModel'
+import { OrderRepositoryDatabase } from '../../src/infra/checkout/repository/sequelize/OrderRepositoryDatabase'
+import { OrderModel } from '../../src/infra/checkout/database/sequelize/model/OrderModel'
 
 let sequelize: Sequelize
 let customer: Customer

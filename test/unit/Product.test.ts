@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { Product } from '../../src/domain/entity/Product'
+import { Product } from '../../src/domain/product/entity/Product'
 
 describe("Product unit tests", () => {
 

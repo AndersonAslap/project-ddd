@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto'
-import { Product } from '../../src/domain/entity/Product'
-import { ProductService } from '../../src/domain/service/ProductService'
+import { Product } from '../../src/domain/product/entity/Product'
+import { ProductService } from '../../src/domain/product/service/ProductService'
 
 describe("Product service unit tests", () => {
 

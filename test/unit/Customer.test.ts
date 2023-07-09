@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto'
-import { Customer } from '../../src/domain/entity/Customer'
-import { Address } from '../../src/domain/entity/Address'
-import { LogAddressHandler } from '../../src/domain/event/customer/handler/LogAddressHandler'
+import { Customer } from '../../src/domain/customer/entity/Customer'
+import { Address } from '../../src/domain/customer/value-object/Address'
+import { LogAddressHandler } from '../../src/domain/customer/event/handler/LogAddressHandler'
 
 describe("Customer unit tests", () => {
 

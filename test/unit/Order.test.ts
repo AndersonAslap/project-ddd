@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto'
-import { Order } from '../../src/domain/entity/Order'
-import { Item } from '../../src/domain/entity/Item'
+import { Order } from '../../src/domain/checkout/entity/Order'
+import { Item } from '../../src/domain/checkout/entity/Item'
 
 describe("Order unit tests", () => {
 
