@@ -85,7 +85,7 @@ describe("Order repository unit tests", () => {
         expect(findOrder).toEqual(order)
     })
 
-    it.only("should updated an order", async () => {
+    it("should updated an order", async () => {
         const item = new Item(randomUUID(), product1._id, product1._price, 2)
         const order = new Order(randomUUID(), customer._id, [item])
         await orderRepository.save(order)

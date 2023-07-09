@@ -1,3 +1,4 @@
+import { PublishedEventCustomerChangeAddressService } from "../service/PublishedEventCustomerChangeAddressService"
 import { Address } from "./Address"
 
 export class Customer {
@@ -50,8 +51,14 @@ export class Customer {
         return this.active
     }
 
-    addAddress(address: Address) {
+    changeAddress(address: Address) {
         this.address = address
+        const payload = {
+            id: this._id,
+            name: this._name,
+            address
+        }
+        PublishedEventCustomerChangeAddressService.published(payload)
     }
 
     validate() {

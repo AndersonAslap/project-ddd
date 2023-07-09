@@ -4,6 +4,9 @@ import { Customer } from '../../src/domain/entity/Customer'
 import { CustomerRepository } from '../../src/domain/repository/CustomerRepository'
 import { CustomerModel } from '../../src/infra/database/sequelize/model/CustomerModel'
 import { CustomerRepositoryDatabase } from '../../src/infra/repository/CustomerRepositoryDatabase'
+import { CreatedCustomer } from '../../src/application/use-cases/CreatedCustomer'
+import { Log1Handler } from '../../src/domain/event/customer/handler/Log1Handler'
+import { Log2Handler } from '../../src/domain/event/customer/handler/Log2Handler'
 
 let sequelize: Sequelize
 let customerRepository: CustomerRepository
@@ -27,12 +30,15 @@ describe("Customer repository unit tests", () => {
     })
 
     it("should create customer", async () => {
-        const id = randomUUID()
-        const customer = new Customer(id, "Anderson")
-        await customerRepository.save(customer)
-        const customerModel = await CustomerModel.findOne({ where : { id } })
+        const input  = {
+            id: randomUUID(),
+            name: "Anderson"
+        }
+        const createdCustomer = new CreatedCustomer(customerRepository)
+        createdCustomer.execute(input)
+        const customerModel = await CustomerModel.findOne({ where : { id: input.id } })
         expect(customerModel.toJSON()).toStrictEqual({
-            id,
+            id: input.id,
             name: 'Anderson',
             number: null,
             state: null,
@@ -73,5 +79,18 @@ describe("Customer repository unit tests", () => {
         await customerRepository.save(customer2)
         const customers = await customerRepository.findAll()
         expect(customers).toEqual([customer1, customer2])
+    })
+
+    it("should create a user and published event", () => {
+        const spyEventHandler1 = jest.spyOn(Log1Handler.prototype, "handle");
+        const spyEventHandler2 = jest.spyOn(Log2Handler.prototype, "handle");
+        const input  = {
+            id: randomUUID(),
+            name: "Anderson Adolfo"
+        }
+        const createdCustomer = new CreatedCustomer(customerRepository)
+        createdCustomer.execute(input)
+        expect(spyEventHandler1).toBeCalled()
+        expect(spyEventHandler2).toBeCalled()
     })
 })

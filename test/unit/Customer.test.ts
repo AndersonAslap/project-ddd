@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
 import { Customer } from '../../src/domain/entity/Customer'
 import { Address } from '../../src/domain/entity/Address'
+import { LogAddressHandler } from '../../src/domain/event/customer/handler/LogAddressHandler'
 
 describe("Customer unit tests", () => {
 
@@ -40,19 +41,19 @@ describe("Customer unit tests", () => {
         }).toThrowError("Empty address")
     })
 
-    it("should add address", () => {
+    it("should change address", () => {
         const id = randomUUID()
         const customer = new Customer(id, "Anderson")
         const address = new Address("Street 1", 123, "13330-250", "Pernambuco")
-        customer.addAddress(address)
+        customer.changeAddress(address)
         expect(customer._address.state).toBe("Pernambuco")
     })
 
     it("should activate customer", () => {
         const id = randomUUID()
         const customer = new Customer(id, "Anderson")
-        const address = new Address("Street 1", 123, "13330-250", "Pernambuco")
-        customer.addAddress(address)
+        const address = new Address("Street 2", 153, "13330-333", "Amazonas")
+        customer.changeAddress(address)
         customer.activate()
         expect(customer.isActive()).toBeTruthy()
     })
@@ -83,5 +84,15 @@ describe("Customer unit tests", () => {
         expect(() => {
             customer.increaseRewarsPoints(-10)
         }).toThrowError("Rewards points is invalid")
+    })
+
+    it("should change address and published event", () => {
+        const spyEventHandler = jest.spyOn(LogAddressHandler.prototype, "handle");
+        const id = randomUUID()
+        const customer = new Customer(id, "Anderson")
+        const address = new Address("Street 1", 123, "13330-250", "Rio de Janeiro")
+        customer.changeAddress(address)
+        expect(customer._address.state).toBe("Rio de Janeiro")
+        expect(spyEventHandler).toBeCalledTimes(1)
     })
 })
