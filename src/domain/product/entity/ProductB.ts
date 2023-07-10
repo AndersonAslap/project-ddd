@@ -1,6 +1,6 @@
 import { ProductInterface } from "./ProductInterface"
 
-export class Product implements ProductInterface{
+export class ProductB implements ProductInterface {
 
     constructor(readonly id: string, private name: string, private price: number) {
         this.validated()
@@ -15,7 +15,7 @@ export class Product implements ProductInterface{
     }
 
     get _price() {
-        return this.price
+        return this.price * 2
     }
 
     changeName(name: string) {
