@@ -1,9 +1,9 @@
-import { Event } from "../../@shared/Event";
-import { EventHandler } from "../../@shared/EventHandler";
+import { EventHandler } from "../../../@shared/event/EventHandler";
+import { CustomerCreatedEvent } from "../CustomerCreatedEvent";
 
 export class Log2Handler implements EventHandler {
     
-    handle(event: Event): void {
+    handle(event: CustomerCreatedEvent): void {
         console.log("Esse é o segundo console.log do evento: CustomerCreated")
     }
 }
