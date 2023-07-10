@@ -78,7 +78,7 @@ describe("Customer repository unit tests", () => {
         const customer2 = new Customer(randomUUID(), "Anderson Santos")
         await customerRepository.save(customer2)
         const customers = await customerRepository.findAll()
-        expect(customers).toEqual([customer1, customer2])
+        expect(customers.sort()).toEqual([customer1, customer2].sort())
     })
 
     it("should create a user and published event", () => {

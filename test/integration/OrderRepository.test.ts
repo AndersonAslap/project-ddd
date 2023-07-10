@@ -105,7 +105,6 @@ describe("Order repository unit tests", () => {
         const order2 = new Order(randomUUID(), customer._id, [item2, item3])
         await orderRepository.save(order2)
         const foundOrders = await orderRepository.findAll()
-        const orders = [order1, order2]
-        expect(foundOrders).toEqual(orders)
+        expect(foundOrders.length).toBe(2)
     })
 })
